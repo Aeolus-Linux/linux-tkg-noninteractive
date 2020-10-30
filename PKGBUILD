@@ -46,7 +46,7 @@ if [ -n "$_custom_pkgbase" ]; then
 else
   pkgbase=linux"${_basever}"-tkg-"${_cpusched}"${_compiler_name}
 fi
-pkgname=("${pkgbase}" "${pkgbase}-headers")
+pkgname=("linux-tkg-pds" "linux-tkg-pds-headers")
 pkgver="${_basekernel}"."${_sub}"
 pkgrel=6
 pkgdesc='Linux-tkg'
