@@ -522,7 +522,7 @@ package_linux() {
 hackbase
 }
 
-package_linux-headers) {
+package_linux-headers() {
 hackheaders
 }
 EOF
