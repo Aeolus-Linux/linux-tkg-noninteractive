@@ -518,11 +518,11 @@ hackheaders() {
 }
 
 source /dev/stdin <<EOF
-package_${pkgbase}() {
+package_linux() {
 hackbase
 }
 
-package_${pkgbase}-headers() {
+package_linux-headers) {
 hackheaders
 }
 EOF
