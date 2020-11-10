@@ -25,7 +25,6 @@ jobs:
     - name: Build packages
       run: |
         pacman -Syyu --needed --noconfirm sudo git fakeroot base-devel --noprogressbar
-        git init
         useradd -p builderbob -c builderbob -m builderbob
         echo "builderbob:builderbob"|chpasswd
         tee -a /etc/sudoers > /dev/null <<EOT
@@ -33,6 +32,7 @@ jobs:
         EOT
         git clone https://github.com/Aeolus-Linux/linux-tkg-noninteractive.git
         cd linux-tkg-noninteractive
+        git init
         mkdir upstream
         cd upstream
         git clone https://github.com/Frogging-Family/linux-tkg.git
@@ -44,7 +44,6 @@ jobs:
         cd ..
         chmod -777 -R ./upstream/
         chown builderbob:builderbob ./upstream/
-        chown builderbob:builderbob ./output/
         cd upstream
         cd linux-tkg
         su -c "makepkg -s" builderbob
@@ -52,6 +51,7 @@ jobs:
         rm -rf output
         mkdir output
         chmod -777 -R ./output/
+        chown builderbob:builderbob ./output/
         cp ./upstream/linux-tkg/*.pkg.tar.zst ./output/
         rm -rf upstream
         git add *
