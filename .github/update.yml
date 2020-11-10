@@ -42,6 +42,7 @@ jobs:
         cd linux-tkg
         su -c "makepkg -s" builderbob
         cd .. && cd ..
+        rm -rf output
         git add *
     - name: Commit to repository
       env:
