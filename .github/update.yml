@@ -1,0 +1,81 @@
+# This is a basic workflow to help you get started with Actions
+
+name: CI
+
+# Controls when the action will run. Triggers the workflow on push or pull request
+# events but only for the master branch
+on: 
+  schedule: 
+    - cron: "*/30 12 * * *"
+  workflow_dispatch:
+# A workflow run is made up of one or more jobs that can run sequentially or in parallel
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    container:
+      image: archlinux:latest
+      volumes:
+        - /proc:/proc
+        - /sys/fs/cgroup/systemd/actions_job:/sys/fs/cgroup/systemd/actions_job
+        - /sys/fs/cgroup:/sys/fs/cgroup
+      options: --privileged
+
+    steps:
+    - name: Build packages
+      run: |
+        pacman -Syu --needed --noconfirm --noprogressbar 
+        pacman -Syyu --needed --noconfirm sudo git --noprogressbar
+        useradd -p builderbob -c builderbob -m builderbob
+        echo "builderbob:builderbob"|chpasswd
+        tee -a /etc/sudoers > /dev/null <<EOT
+        builderbob    ALL=(ALL) NOPASSWD:ALL
+        EOT
+        git clone https://github.com/Aeolus-Linux/linux-tkg-noninteractive/
+        chmod -777 -R ./aeolus-pkgs/
+        cd ./aeolus-pkgs/
+        git init
+        git add *
+        dir
+        ls
+        pwd
+        pacman -Syyu --noconfirm
+        chmod +x build.sh
+        pwd
+        cd x86_64
+        pwd
+        DBDIR="$(pwd)"
+        tee -a /etc/pacman.conf > /dev/null <<EOT
+        [aeolus-pkgs]
+        SigLevel = Optional TrustAll
+        Server = file://${DBDIR}
+        EOT
+        printf 'y\n' | sudo pacman -Scc
+        sudo pacman -Syyu
+        cd ..
+        su -c "./build.sh" builderbob
+        #mkdir goo
+        #cd goo
+        #cp /etc/pacman.conf ./
+        #mv pacman.conf goo
+        echo $GITHUB_REPOSITORY
+        #cd ..
+    - name: Commit to repository
+      env:
+        GITHUB_TOKEN: ${{ secrets.github_token }}
+        COMMIT_MSG: |
+          <Update Packages>
+          skip-checks: true
+      run: |
+        # Hard-code user configuration
+        pwd
+        cd aeolus-pkgs
+        git config user.email "tysayahi@gmail.com"
+        git config user.name "Eile Kerning"
+        # Update origin with token
+        git remote set-url origin https://x-access-token:${GITHUB_TOKEN}@github.com/${GITHUB_REPOSITORY}.git
+        # Checkout the branch so we can push back to it
+        git checkout master
+        git add .
+        # Only commit and push if we have changes
+        git diff --quiet && git diff --staged --quiet || (git commit -m "${COMMIT_MSG}"; git push origin master)
