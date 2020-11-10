@@ -32,8 +32,8 @@ jobs:
         builderbob    ALL=(ALL) NOPASSWD:ALL
         EOT
         git clone https://github.com/Aeolus-Linux/linux-tkg-noninteractive/
-        chmod -777 -R ./aeolus-pkgs/
-        cd ./aeolus-pkgs/
+        chmod -777 -R ./linux-tkg-noninteractive/
+        cd ./linux-tkg-noninteractive/
         git init
         git add *
         dir
@@ -64,12 +64,12 @@ jobs:
       env:
         GITHUB_TOKEN: ${{ secrets.github_token }}
         COMMIT_MSG: |
-          <Update Packages>
+          <Update Package>
           skip-checks: true
       run: |
         # Hard-code user configuration
         pwd
-        cd aeolus-pkgs
+        cd linux-tkg-noninteractive
         git config user.email "tysayahi@gmail.com"
         git config user.name "Eile Kerning"
         # Update origin with token
