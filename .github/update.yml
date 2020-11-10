@@ -41,6 +41,7 @@ jobs:
         chmod -777 -R ./linux-tkg/
         cd linux-tkg
         su -c "makepkg -s" builderbob
+        cd .. && cd ..
         git add *
     - name: Commit to repository
       env:
