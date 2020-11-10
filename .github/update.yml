@@ -38,7 +38,6 @@ jobs:
         git add *
         pacman -Syyu --noconfirm
         OGDIR="$(pwd)"
-        printf 'y\n' | sudo pacman -Scc
         sudo pacman -Syyu
         su -c "./build.sh" builderbob
     - name: Commit to repository
