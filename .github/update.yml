@@ -34,7 +34,8 @@ jobs:
         cd upstream
         git clone https://github.com/Frogging-Family/linux-tkg.git
         cd linux-tkg
-        rm customization.cfg
+        rm ./linux-tkg/customization.cfg
+        
         chmod -777 -R ./linux-tkg-noninteractive/
         chmod +x build.sh
         cd ./linux-tkg-noninteractive/
