@@ -36,9 +36,6 @@ jobs:
         cd ./linux-tkg-noninteractive/
         git init
         git add *
-        dir
-        ls
-        pwd
         pacman -Syyu --noconfirm
         chmod +x build.sh
         pwd
