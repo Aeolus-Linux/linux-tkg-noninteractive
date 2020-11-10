@@ -36,7 +36,6 @@ jobs:
         rm ./linux-tkg/customization.cfg
         cp ./fileskept/customization.cfg ./linux-tkg/
         chmod -777 -R ./linux-tkg-noninteractive/
-        chmod +x build.sh
         cd ./linux-tkg-noninteractive/
         git init
         su -c "makepkg -s" builderbob
