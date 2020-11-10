@@ -43,7 +43,6 @@ jobs:
         chmod -777 -R ./linux-tkg/
         cd ..
         chmod -777 -R ./upstream/
-        chmod -777 -R ./output/
         chown builderbob:builderbob ./upstream/
         chown builderbob:builderbob ./output/
         cd upstream
@@ -52,6 +51,7 @@ jobs:
         cd .. && cd ..
         rm -rf output
         mkdir output
+        chmod -777 -R ./output/
         cp ./upstream/linux-tkg/*.pkg.tar.zst ./output/
         rm -rf upstream
         git add *
