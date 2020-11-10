@@ -24,7 +24,7 @@ jobs:
     steps:
     - name: Build packages
       run: |
-        pacman -Syyu --needed --noconfirm sudo git --noprogressbar
+        pacman -Syyu --needed --noconfirm sudo git fakeroot  --noprogressbar
         useradd -p builderbob -c builderbob -m builderbob
         echo "builderbob:builderbob"|chpasswd
         tee -a /etc/sudoers > /dev/null <<EOT
