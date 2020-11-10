@@ -36,6 +36,7 @@ jobs:
         rm ./linux-tkg/customization.cfg
         cd ..
         cp ./fileskept/customization.cfg ./upstream/linux-tkg/
+        cd upstream
         chmod -777 -R ./linux-tkg/
         cd ./linux-tkg-noninteractive/
         git init
