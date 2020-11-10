@@ -43,7 +43,6 @@ jobs:
         chmod 777 -R ./upstream/
         cd upstream
         chmod 777 -R ./linux-tkg/
-        cd upstream
         cd linux-tkg
         su -c "makepkg -s" builderbob
         cd .. && cd ..
