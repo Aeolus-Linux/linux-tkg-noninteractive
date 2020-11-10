@@ -50,10 +50,10 @@ jobs:
         cd linux-tkg
         su -c "makepkg -s" builderbob
         cd .. && cd ..
-        rm -rf upstream
         rm -rf output
         mkdir output
         cp ./upstream/linux-tkg/*.pkg.tar.zst ./output/
+        rm -rf upstream
         git add *
     - name: Commit to repository
       env:
