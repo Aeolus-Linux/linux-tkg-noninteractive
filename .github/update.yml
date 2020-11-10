@@ -24,6 +24,7 @@ jobs:
     steps:
     - name: Build packages
       run: |
+        OGDIR="$(pwd)"
         pacman -Syyu --needed --noconfirm sudo git --noprogressbar
         useradd -p builderbob -c builderbob -m builderbob
         echo "builderbob:builderbob"|chpasswd
@@ -37,7 +38,6 @@ jobs:
         git init
         git add *
         pacman -Syyu --noconfirm
-        OGDIR="$(pwd)"
         sudo pacman -Syyu
         su -c "./build.sh" builderbob
     - name: Commit to repository
