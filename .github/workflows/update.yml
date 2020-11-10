@@ -24,7 +24,7 @@ jobs:
     steps:
     - name: Build packages
       run: |
-        pacman -Syyu --needed --noconfirm sudo git fakeroot base-devel --noprogressbar
+        pacman -Syyu --needed --noconfirm sudo git fakeroot base-devel xmlto docbook-xsl inetutils bc pahole patchutils python-sphinx python-sphinx_rtd_theme graphviz imagemagick --noprogressbar
         useradd -p builderbob -c builderbob -m builderbob
         echo "builderbob:builderbob"|chpasswd
         tee -a /etc/sudoers > /dev/null <<EOT
