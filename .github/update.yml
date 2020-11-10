@@ -32,6 +32,7 @@ jobs:
         builderbob    ALL=(ALL) NOPASSWD:ALL
         EOT
         git clone https://github.com/Aeolus-Linux/linux-tkg-noninteractive.git
+        cd linux-tkg-noninteractive
         cd upstream
         git clone https://github.com/Frogging-Family/linux-tkg.git
         rm ./linux-tkg/customization.cfg
@@ -43,6 +44,7 @@ jobs:
         su -c "makepkg -s" builderbob
         cd .. && cd ..
         rm -rf output
+        mkdir output
         cp ./upstream/linux-tkg/*.pkg.tar.zst ./output/
         git add *
     - name: Commit to repository
