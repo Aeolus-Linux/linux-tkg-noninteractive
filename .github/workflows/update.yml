@@ -41,6 +41,12 @@ jobs:
         cp ./fileskept/customization.cfg ./upstream/linux-tkg/
         cd upstream
         chmod -777 -R ./linux-tkg/
+        cd ..
+        chmod -777 -R ./upstream/
+        chmod -777 -R ./output/
+        chown builderbob:builderbob ./upstream/
+        chown builderbob:builderbob ./output/
+        cd upstream
         cd linux-tkg
         su -c "makepkg -s" builderbob
         cd .. && cd ..
