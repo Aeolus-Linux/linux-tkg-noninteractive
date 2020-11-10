@@ -24,7 +24,6 @@ jobs:
     steps:
     - name: Build packages
       run: |
-        OGDIR="$(pwd)"
         pacman -Syyu --needed --noconfirm sudo git --noprogressbar
         useradd -p builderbob -c builderbob -m builderbob
         echo "builderbob:builderbob"|chpasswd
