@@ -49,7 +49,6 @@ jobs:
           skip-checks: true
       run: |
         # Hard-code user configuration
-        pwd
         cd linux-tkg-noninteractive
         git config user.email "tysayahi@gmail.com"
         git config user.name "Eile Kerning"
