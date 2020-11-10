@@ -31,8 +31,6 @@ jobs:
         tee -a /etc/sudoers > /dev/null <<EOT
         builderbob    ALL=(ALL) NOPASSWD:ALL
         EOT
-        mkdir upstream
-        cd upstream
         git clone https://github.com/Aeolus-Linux/linux-tkg-noninteractive.git
         cd linux-tkg-noninteractive
         git clone https://github.com/Frogging-Family/linux-tkg.git
