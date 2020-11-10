@@ -37,12 +37,7 @@ jobs:
         git init
         git add *
         pacman -Syyu --noconfirm
-        DBDIR="$(pwd)"
-        tee -a /etc/pacman.conf > /dev/null <<EOT
-        [aeolus-pkgs]
-        SigLevel = Optional TrustAll
-        Server = file://${DBDIR}
-        EOT
+        OGDIR="$(pwd)"
         printf 'y\n' | sudo pacman -Scc
         sudo pacman -Syyu
         cd ..
