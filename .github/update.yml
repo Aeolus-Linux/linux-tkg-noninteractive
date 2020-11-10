@@ -37,10 +37,6 @@ jobs:
         git init
         git add *
         pacman -Syyu --noconfirm
-        chmod +x build.sh
-        pwd
-        cd x86_64
-        pwd
         DBDIR="$(pwd)"
         tee -a /etc/pacman.conf > /dev/null <<EOT
         [aeolus-pkgs]
