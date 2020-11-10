@@ -33,6 +33,8 @@ jobs:
         EOT
         git clone https://github.com/Aeolus-Linux/linux-tkg-noninteractive.git
         cd linux-tkg-noninteractive
+        mkdir upstream
+        cd upstream
         git clone https://github.com/Frogging-Family/linux-tkg.git
         rm ./linux-tkg/customization.cfg
         cd ..
