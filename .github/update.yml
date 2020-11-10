@@ -35,8 +35,6 @@ jobs:
         chmod +x build.sh
         cd ./linux-tkg-noninteractive/
         git init
-        pacman -Syyu --noconfirm
-        sudo pacman -Syyu
         su -c "./build.sh" builderbob
         git add *
     - name: Commit to repository
