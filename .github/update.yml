@@ -41,12 +41,6 @@ jobs:
         printf 'y\n' | sudo pacman -Scc
         sudo pacman -Syyu
         su -c "./build.sh" builderbob
-        #mkdir goo
-        #cd goo
-        #cp /etc/pacman.conf ./
-        #mv pacman.conf goo
-        echo $GITHUB_REPOSITORY
-        #cd ..
     - name: Commit to repository
       env:
         GITHUB_TOKEN: ${{ secrets.github_token }}
