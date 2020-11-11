@@ -16,10 +16,10 @@ jobs:
     steps:
     - name: Build packages
       run: |
-        df
+        df -h
         apt install -y sudo git fakeroot binutils base-essential r-base-dev xmlto docbook-xsl inetutils bc dwarves patchutils python-sphinx python-sphinx_rtd_theme graphviz imagemagick
         useradd -p builderbob -c builderbob -m builderbob
-        df
+        df -h
         echo "builderbob:builderbob"|chpasswd
         tee -a /etc/sudoers > /dev/null <<EOT
         builderbob    ALL=(ALL) NOPASSWD:ALL
