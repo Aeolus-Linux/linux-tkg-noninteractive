@@ -56,6 +56,7 @@ jobs:
         sh free_disk_space.sh
         rm -rf "/usr/local/share/boost"
         rm -rf "$AGENT_TOOLSDIRECTORY"
+        apt clean
     - name: Build Kernel
       run: |
         su -c "makepkg -s" builderbob
