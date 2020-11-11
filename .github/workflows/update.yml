@@ -48,15 +48,6 @@ jobs:
         cd upstream
         chmod 777 -R ./linux-tkg/
         cd linux-tkg
-    - name: Clear space
-      target: host
-      run: | 
-        wget https://github.com/apache/flink/raw/master/tools/azure-pipelines/free_disk_space.sh
-        chmod +x free_disk_space.sh
-        sh free_disk_space.sh
-        rm -rf "/usr/local/share/boost"
-        rm -rf "$AGENT_TOOLSDIRECTORY"
-        apt clean
     - name: Build Kernel
       run: |
         su -c "makepkg -s" builderbob
