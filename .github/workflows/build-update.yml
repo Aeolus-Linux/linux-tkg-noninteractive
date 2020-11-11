@@ -16,12 +16,12 @@ jobs:
     steps: 
     - name: clean space
       run: |
-        wget https://github.com/apache/flink/raw/master/tools/azure-pipelines/free_disk_space.sh
-        chmod +x free_disk_space.sh
-        sh free_disk_space.sh
-        rm -rf "/usr/local/share/boost"
-        rm -rf "$AGENT_TOOLSDIRECTORY"
-        sudo apt clean
+        #wget https://github.com/apache/flink/raw/master/tools/azure-pipelines/free_disk_space.sh
+        #chmod +x free_disk_space.sh
+        #sh free_disk_space.sh
+        #rm -rf "/usr/local/share/boost"
+        #rm -rf "$AGENT_TOOLSDIRECTORY"
+        #sudo apt clean
     - name: Setup build environment
       uses: addnab/docker-run-action@v1
       env:
