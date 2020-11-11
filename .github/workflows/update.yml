@@ -30,7 +30,6 @@ jobs:
         - /sys/fs/cgroup:/sys/fs/cgroup
       options: --privileged
 
-    steps:
     - name: Setup build environment
       run: |
         df -h
