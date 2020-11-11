@@ -10,31 +10,18 @@ on:
   workflow_dispatch:
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
-  cleanup:
   runs-on: ubuntu-latest
-    steps: 
-    - name: clean space
-      run: |
+  build:
+   - name: Cleanup
+     run: |
         wget https://github.com/apache/flink/raw/master/tools/azure-pipelines/free_disk_space.sh
         chmod +x free_disk_space.sh
         sh free_disk_space.sh
         rm -rf "/usr/local/share/boost"
         rm -rf "$AGENT_TOOLSDIRECTORY"
         apt clean
-
-  build:
-    container:
-      image: archlinux:latest
-      volumes:
-        - /proc:/proc
-        - /sys/fs/cgroup/systemd/actions_job:/sys/fs/cgroup/systemd/actions_job
-        - /sys/fs/cgroup:/sys/fs/cgroup
-      options: --privileged
-      ports:
-        - 22
-
-   -  name: Setup build environment
-     - uses: addnab/docker-run-action@v1
+   - name: Setup build environment
+   - uses: addnab/docker-run-action@v1
      with:
       image: archlinux:latest
       run: |
@@ -62,11 +49,11 @@ jobs:
         cd upstream
         chmod 777 -R ./linux-tkg/
         cd linux-tkg
-    - name: Build Kernel
-      run: |
+   - name: Build Kernel
+     run: |
         su -c "makepkg -s" builderbob
-    - name: Copy output and clean up repo
-      run: |
+   - name: Copy output and clean up repo
+     run: |
         cd .. && cd ..
         rm -rf output
         mkdir output
@@ -75,13 +62,13 @@ jobs:
         cp ./upstream/linux-tkg/*.pkg.tar.zst ./output/
         rm -rf upstream
         git add *
-    - name: Commit to repository
-      env:
+   - name: Commit to repository
+     env:
         GITHUB_TOKEN: ${{ secrets.github_token }}
         COMMIT_MSG: |
           <Update Package>
           skip-checks: true
-      run: |
+     run: |
         # Hard-code user configuration
         cd linux-tkg-noninteractive
         git config user.email "tysayahi@gmail.com"
