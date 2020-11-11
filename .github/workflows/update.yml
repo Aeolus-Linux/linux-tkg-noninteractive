@@ -13,14 +13,6 @@ jobs:
   build:
     runs-on: ubuntu-latest
 
-    container:
-      image: archlinux:latest
-      volumes:
-        - /proc:/proc
-        - /sys/fs/cgroup/systemd/actions_job:/sys/fs/cgroup/systemd/actions_job
-        - /sys/fs/cgroup:/sys/fs/cgroup
-      options: --privileged
-
     steps:
     - name: Build packages
       run: |
