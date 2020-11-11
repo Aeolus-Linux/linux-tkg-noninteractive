@@ -13,15 +13,23 @@ jobs:
   build:
     runs-on: ubuntu-latest
 
+    container:
+      image: archlinux:latest
+      volumes:
+        - /proc:/proc
+        - /sys/fs/cgroup/systemd/actions_job:/sys/fs/cgroup/systemd/actions_job
+        - /sys/fs/cgroup:/sys/fs/cgroup
+      options: --privileged
+
     steps:
     - name: Build packages
       run: |
         df -h
-        sudo apt install -y sudo git fakeroot binutils r-base-dev xmlto docbook-xsl inetutils-tools bc dwarves patchutils python-sphinx python-sphinx-rtd-theme graphviz imagemagick
-        sudo useradd -p builderbob -c builderbob -m builderbob
+        pacman -Syyu --needed --noconfirm sudo git fakeroot binutils base-devel xmlto docbook-xsl inetutils bc pahole patchutils python-sphinx python-sphinx_rtd_theme graphviz imagemagick --noprogressbar
+        useradd -p builderbob -c builderbob -m builderbob
         df -h
         echo "builderbob:builderbob"|chpasswd
-        sudo tee -a /etc/sudoers > /dev/null <<EOT
+        tee -a /etc/sudoers > /dev/null <<EOT
         builderbob    ALL=(ALL) NOPASSWD:ALL
         EOT
         git clone https://github.com/Aeolus-Linux/linux-tkg-noninteractive.git
