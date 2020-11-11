@@ -41,9 +41,8 @@ jobs:
           tee -a /etc/sudoers > /dev/null <<EOT
           builderbob    ALL=(ALL) NOPASSWD:ALL
           EOT
-          #git clone https://github.com/Aeolus-Linux/linux-tkg-noninteractive.git
+          git clone https://github.com/Aeolus-Linux/linux-tkg-noninteractive.git
           cd linux-tkg-noninteractive
-          chmod +x free_disk_space.sh
           git init
           mkdir upstream
           cd upstream
@@ -64,7 +63,12 @@ jobs:
           cp ./upstream/linux-tkg/*.pkg.tar.zst ./output/
           rm -rf upstream
           git add *
-          su -c "makepkg -s" builderbob
+          #su -c "makepkg -s" builderbob
+          if [ -z ${COMMIT_MSG} ]; then
+            echo "variable is not set"
+          else
+            echo "variable is set"
+          fi
           # Hard-code user configuration
           cd linux-tkg-noninteractive
           git config user.email "tysayahi@gmail.com"
