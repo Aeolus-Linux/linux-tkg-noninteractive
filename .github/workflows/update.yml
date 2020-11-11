@@ -32,7 +32,7 @@ jobs:
         tee -a /etc/sudoers > /dev/null <<EOT
         builderbob    ALL=(ALL) NOPASSWD:ALL
         EOT
-        git clone https://github.com/Aeolus-Linux/linux-tkg-noninteractive.git
+        #git clone https://github.com/Aeolus-Linux/linux-tkg-noninteractive.git
         cd linux-tkg-noninteractive
         git init
         mkdir upstream
@@ -46,7 +46,7 @@ jobs:
         cd upstream
         chmod 777 -R ./linux-tkg/
         cd linux-tkg
-        su -c "makepkg -s" builderbob
+        #su -c "makepkg -s" builderbob
         cd .. && cd ..
         rm -rf output
         mkdir output
