@@ -24,17 +24,17 @@ jobs:
     - name: Setup build environment
     - uses: addnab/docker-run-action@v1
       with:
-      image: archlinux:latest
-      run: |
-        df -h
-        sudo rm -rf "/usr/local/share/boost" && sudo rm -rf "$AGENT_TOOLSDIRECTORY"
-        pacman -Syyu --needed --noconfirm sudo git fakeroot binutils base-devel xmlto docbook-xsl inetutils bc pahole patchutils python-sphinx python-sphinx_rtd_theme graphviz imagemagick --noprogressbar
-        useradd -p builderbob -c builderbob -m builderbob
-        df -h
-        echo "builderbob:builderbob"|chpasswd
-        tee -a /etc/sudoers > /dev/null <<EOT
-        builderbob    ALL=(ALL) NOPASSWD:ALL
-        EOT
+        image: archlinux:latest
+        run: |
+          df -h
+          sudo rm -rf "/usr/local/share/boost" && sudo rm -rf "$AGENT_TOOLSDIRECTORY"
+          pacman -Syyu --needed --noconfirm sudo git fakeroot binutils base-devel xmlto docbook-xsl inetutils bc pahole patchutils python-sphinx python-sphinx_rtd_theme graphviz imagemagick --noprogressbar
+          useradd -p builderbob -c builderbob -m builderbob
+          df -h
+          echo "builderbob:builderbob"|chpasswd
+          tee -a /etc/sudoers > /dev/null <<EOT
+          builderbob    ALL=(ALL) NOPASSWD:ALL
+          EOT
         #git clone https://github.com/Aeolus-Linux/linux-tkg-noninteractive.git
         cd linux-tkg-noninteractive
         chmod +x free_disk_space.sh
