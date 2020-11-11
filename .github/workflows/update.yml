@@ -17,7 +17,7 @@ jobs:
     - name: Build packages
       run: |
         df -h
-        sudo apt install -y sudo git fakeroot binutils base-essential r-base-dev xmlto docbook-xsl inetutils bc dwarves patchutils python-sphinx python-sphinx_rtd_theme graphviz imagemagick
+        sudo apt install -y sudo git fakeroot binutils base-essential r-base-dev xmlto docbook-xsl inetutil-toolss bc dwarves patchutils python-sphinx python-sphinx-rtd-theme graphviz imagemagick
         useradd -p builderbob -c builderbob -m builderbob
         df -h
         echo "builderbob:builderbob"|chpasswd
