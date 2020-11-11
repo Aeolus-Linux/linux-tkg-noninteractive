@@ -21,9 +21,9 @@ jobs:
         rm -rf "/usr/local/share/boost"
         rm -rf "$AGENT_TOOLSDIRECTORY"
         apt clean
-   - name: Setup build environment
-   - uses: addnab/docker-run-action@v1
-     with:
+    - name: Setup build environment
+    - uses: addnab/docker-run-action@v1
+      with:
       image: archlinux:latest
       run: |
         df -h
@@ -50,11 +50,11 @@ jobs:
         cd upstream
         chmod 777 -R ./linux-tkg/
         cd linux-tkg
-   - name: Build Kernel
-     run: |
+    - name: Build Kernel
+      run: |
         su -c "makepkg -s" builderbob
-   - name: Copy output and clean up repo
-     run: |
+    - name: Copy output and clean up repo
+      run: |
         cd .. && cd ..
         rm -rf output
         mkdir output
@@ -63,13 +63,13 @@ jobs:
         cp ./upstream/linux-tkg/*.pkg.tar.zst ./output/
         rm -rf upstream
         git add *
-   - name: Commit to repository
-     env:
+    - name: Commit to repository
+      env:
         GITHUB_TOKEN: ${{ secrets.github_token }}
         COMMIT_MSG: |
           <Update Package>
           skip-checks: true
-     run: |
+      run: |
         # Hard-code user configuration
         cd linux-tkg-noninteractive
         git config user.email "tysayahi@gmail.com"
