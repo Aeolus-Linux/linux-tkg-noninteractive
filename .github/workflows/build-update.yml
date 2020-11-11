@@ -25,9 +25,6 @@ jobs:
     - name: Setup build environment
       uses: aeolus-linux/docker-run-action-env@v1
       vars: $GITHUB_TOKEN=${{ secrets.github_token }}
-        COMMIT_MSG: |
-          <Update Package>
-          skip-checks: true
       with:
         image: archlinux:latest
         run: |
