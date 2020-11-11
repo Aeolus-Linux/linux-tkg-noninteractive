@@ -21,7 +21,7 @@ jobs:
         sh free_disk_space.sh
         rm -rf "/usr/local/share/boost"
         rm -rf "$AGENT_TOOLSDIRECTORY"
-        apt clean
+        sudo apt clean
     - name: Setup build environment
       uses: addnab/docker-run-action@v1
       env:
