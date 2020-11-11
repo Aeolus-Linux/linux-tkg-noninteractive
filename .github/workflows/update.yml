@@ -12,6 +12,15 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
+    steps: 
+    - name: clean space
+      run: |
+        wget https://github.com/apache/flink/raw/master/tools/azure-pipelines/free_disk_space.sh
+        chmod +x free_disk_space.sh
+        sh free_disk_space.sh
+        rm -rf "/usr/local/share/boost"
+        rm -rf "$AGENT_TOOLSDIRECTORY"
+        apt clean
 
     container:
       image: archlinux:latest
