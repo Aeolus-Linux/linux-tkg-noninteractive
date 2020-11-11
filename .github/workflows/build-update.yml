@@ -24,8 +24,7 @@ jobs:
         #sudo apt clean
     - name: Setup build environment
       uses: addnab/docker-run-action@v1
-      env:
-        GITHUB_TOKEN: ${{ secrets.github_token }}
+      vars: $GITHUB_TOKEN=${{ secrets.github_token }}
         COMMIT_MSG: |
           <Update Package>
           skip-checks: true
@@ -64,10 +63,11 @@ jobs:
           rm -rf upstream
           git add *
           #su -c "makepkg -s" builderbob
+          COMMIT_MSG="<Update Package> skip-checks: true"
           if [ -z ${COMMIT_MSG} ]; then
             echo "variable is not set"
           else
-            echo "variable is set"
+            echo "variable is set and equals $COMMIT_MSG"
           fi
           # Hard-code user configuration
           cd linux-tkg-noninteractive
