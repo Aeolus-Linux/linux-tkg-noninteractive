@@ -23,7 +23,6 @@ jobs:
         apt clean
 
   build:
-    needs: cleanup
     container:
       image: archlinux:latest
       volumes:
@@ -31,8 +30,13 @@ jobs:
         - /sys/fs/cgroup/systemd/actions_job:/sys/fs/cgroup/systemd/actions_job
         - /sys/fs/cgroup:/sys/fs/cgroup
       options: --privileged
+      ports:
+        - 22
 
    -  name: Setup build environment
+     - uses: addnab/docker-run-action@v1
+     with:
+      image: archlinux:latest
       run: |
         df -h
         sudo rm -rf "/usr/local/share/boost" && sudo rm -rf "$AGENT_TOOLSDIRECTORY"
