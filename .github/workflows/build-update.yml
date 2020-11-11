@@ -10,18 +10,11 @@ on:
   workflow_dispatch:
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
-<<<<<<< HEAD
   cleanup:
     runs-on: ubuntu-latest
     steps: 
     - name: clean space
       run: |
-=======
-  runs-on: ubuntu-latest
-  build:
-   - name: Cleanup
-     run: |
->>>>>>> 6761d92b142e799aa990f28bb73c27b57cd57782
         wget https://github.com/apache/flink/raw/master/tools/azure-pipelines/free_disk_space.sh
         chmod +x free_disk_space.sh
         sh free_disk_space.sh
