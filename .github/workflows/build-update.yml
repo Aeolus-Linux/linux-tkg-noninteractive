@@ -23,6 +23,11 @@ jobs:
         apt clean
     - name: Setup build environment
     - uses: addnab/docker-run-action@v1
+      env:
+        GITHUB_TOKEN: ${{ secrets.github_token }}
+        COMMIT_MSG: |
+          <Update Package>
+          skip-checks: true
       with:
         image: archlinux:latest
         run: |
@@ -35,49 +40,38 @@ jobs:
           tee -a /etc/sudoers > /dev/null <<EOT
           builderbob    ALL=(ALL) NOPASSWD:ALL
           EOT
-        #git clone https://github.com/Aeolus-Linux/linux-tkg-noninteractive.git
-        cd linux-tkg-noninteractive
-        chmod +x free_disk_space.sh
-        git init
-        mkdir upstream
-        cd upstream
-        git clone https://github.com/Frogging-Family/linux-tkg.git
-        rm ./linux-tkg/customization.cfg
-        cd ..
-        cp ./fileskept/customization.cfg ./upstream/linux-tkg/
-        chown -R builderbob:builderbob ./upstream/
-        chmod 777 -R ./upstream/
-        cd upstream
-        chmod 777 -R ./linux-tkg/
-        cd linux-tkg
-    - name: Build Kernel
-      run: |
-        su -c "makepkg -s" builderbob
-    - name: Copy output and clean up repo
-      run: |
-        cd .. && cd ..
-        rm -rf output
-        mkdir output
-        chmod -R 777 ./output/
-        chown -R builderbob:builderbob ./output/
-        cp ./upstream/linux-tkg/*.pkg.tar.zst ./output/
-        rm -rf upstream
-        git add *
-    - name: Commit to repository
-      env:
-        GITHUB_TOKEN: ${{ secrets.github_token }}
-        COMMIT_MSG: |
-          <Update Package>
-          skip-checks: true
-      run: |
-        # Hard-code user configuration
-        cd linux-tkg-noninteractive
-        git config user.email "tysayahi@gmail.com"
-        git config user.name "Eile Kerning"
-        # Update origin with token
-        git remote set-url origin https://x-access-token:${GITHUB_TOKEN}@github.com/${GITHUB_REPOSITORY}.git
-        # Checkout the branch so we can push back to it
-        git checkout master
-        git add .
-        # Only commit and push if we have changes
-        git diff --quiet && git diff --staged --quiet || (git commit -m "${COMMIT_MSG}"; git push origin master)
+          #git clone https://github.com/Aeolus-Linux/linux-tkg-noninteractive.git
+          cd linux-tkg-noninteractive
+          chmod +x free_disk_space.sh
+          git init
+          mkdir upstream
+          cd upstream
+          git clone https://github.com/Frogging-Family/linux-tkg.git
+          rm ./linux-tkg/customization.cfg
+          cd ..
+          cp ./fileskept/customization.cfg ./upstream/linux-tkg/
+          chown -R builderbob:builderbob ./upstream/
+          chmod 777 -R ./upstream/
+          cd upstream
+          chmod 777 -R ./linux-tkg/
+          cd linux-tkg
+          cd .. && cd ..
+          rm -rf output
+          mkdir output
+          chmod -R 777 ./output/
+          chown -R builderbob:builderbob ./output/
+          cp ./upstream/linux-tkg/*.pkg.tar.zst ./output/
+          rm -rf upstream
+          git add *
+          su -c "makepkg -s" builderbob
+          # Hard-code user configuration
+          cd linux-tkg-noninteractive
+          git config user.email "tysayahi@gmail.com"
+          git config user.name "Eile Kerning"
+          # Update origin with token
+          git remote set-url origin https://x-access-token:${GITHUB_TOKEN}@github.com/${GITHUB_REPOSITORY}.git
+          # Checkout the branch so we can push back to it
+          git checkout master
+          git add .
+          # Only commit and push if we have changes
+          git diff --quiet && git diff --staged --quiet || (git commit -m "${COMMIT_MSG}"; git push origin master)
