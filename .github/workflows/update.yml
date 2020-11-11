@@ -22,9 +22,10 @@ jobs:
       options: --privileged
 
     steps:
-    - name: Build packages
+    - name: Setup build environment
       run: |
         df -h
+        sudo rm -rf "/usr/local/share/boost" && sudo rm -rf "$AGENT_TOOLSDIRECTORY"
         pacman -Syyu --needed --noconfirm sudo git fakeroot binutils base-devel xmlto docbook-xsl inetutils bc pahole patchutils python-sphinx python-sphinx_rtd_theme graphviz imagemagick --noprogressbar
         useradd -p builderbob -c builderbob -m builderbob
         df -h
@@ -34,6 +35,7 @@ jobs:
         EOT
         #git clone https://github.com/Aeolus-Linux/linux-tkg-noninteractive.git
         cd linux-tkg-noninteractive
+        chmod +x free_disk_space.sh
         git init
         mkdir upstream
         cd upstream
@@ -46,7 +48,19 @@ jobs:
         cd upstream
         chmod 777 -R ./linux-tkg/
         cd linux-tkg
-        #su -c "makepkg -s" builderbob
+    - name: Clear space
+      target: host
+      run: | 
+        wget https://github.com/apache/flink/raw/master/tools/azure-pipelines/free_disk_space.sh
+        chmod +x free_disk_space.sh
+        sh free_disk_space.sh
+        rm -rf "/usr/local/share/boost"
+        rm -rf "$AGENT_TOOLSDIRECTORY"
+    - name: Build Kernel
+      run: |
+        su -c "makepkg -s" builderbob
+    - name: Copy output and clean up repo
+      run: |
         cd .. && cd ..
         rm -rf output
         mkdir output
