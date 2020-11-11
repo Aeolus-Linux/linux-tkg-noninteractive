@@ -18,10 +18,10 @@ jobs:
       run: |
         df -h
         sudo apt install -y sudo git fakeroot binutils r-base-dev xmlto docbook-xsl inetutils-tools bc dwarves patchutils python-sphinx python-sphinx-rtd-theme graphviz imagemagick
-        useradd -p builderbob -c builderbob -m builderbob
+        sudo useradd -p builderbob -c builderbob -m builderbob
         df -h
         echo "builderbob:builderbob"|chpasswd
-        tee -a /etc/sudoers > /dev/null <<EOT
+        sudo tee -a /etc/sudoers > /dev/null <<EOT
         builderbob    ALL=(ALL) NOPASSWD:ALL
         EOT
         git clone https://github.com/Aeolus-Linux/linux-tkg-noninteractive.git
