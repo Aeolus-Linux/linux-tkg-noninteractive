@@ -46,17 +46,17 @@ jobs:
           rm ./linux-tkg/customization.cfg
           cd ..
           cp ./fileskept/customization.cfg ./upstream/linux-tkg/
-          chown -R builderbob:builderbob ./upstream/
-          chmod 777 -R ./upstream/
+          sudo chown -R builderbob:builderbob ./upstream/
+          sudo chmod 777 -R ./upstream/
           cd upstream
-          chmod 777 -R ./linux-tkg/
+          sudo chmod 777 -R ./linux-tkg/
           cd linux-tkg
           cd .. 
           cd ..
           rm -rf output
           mkdir output
-          chmod -R 777 ./output/
-          chown -R builderbob:builderbob ./output/
+          sudo chmod -R 777 ./output/
+          sudo chown -R builderbob:builderbob ./output/
           su -c "makepkg -s" builderbob
           cd ..
           cd ..
