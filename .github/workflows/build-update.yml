@@ -23,7 +23,7 @@ jobs:
         #rm -rf "$AGENT_TOOLSDIRECTORY"
         #sudo apt clean
     - name: Setup build environment
-      uses: aeolus-linux/docker-run-action-env@v1
+      uses: aeolus-linux/docker-run-action-env@v2
       with:
         image: archlinux:latest
         vars: $GITHUB_TOKEN=${{ secrets.github_token }}
