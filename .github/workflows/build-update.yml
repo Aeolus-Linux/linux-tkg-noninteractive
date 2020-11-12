@@ -51,23 +51,18 @@ jobs:
           cd upstream
           chmod 777 -R ./linux-tkg/
           cd linux-tkg
-          cd .. && cd ..
+          cd .. 
+          cd ..
           rm -rf output
           mkdir output
           chmod -R 777 ./output/
           chown -R builderbob:builderbob ./output/
+          #su -c "makepkg -s" builderbob
           cp ./upstream/linux-tkg/*.pkg.tar.zst ./output/
           rm -rf upstream
           git add *
-          #su -c "makepkg -s" builderbob
-          COMMIT_MSG="<Update Package> skip-checks: true"
-          if [ -z ${COMMIT_MSG} ]; then
-            echo "variable is not set"
-          else
-            echo "variable is set and equals $COMMIT_MSG"
-          fi
+          [ -z ${GITHUB_TOKEN} ]
           # Hard-code user configuration
-          cd linux-tkg-noninteractive
           git config user.email "tysayahi@gmail.com"
           git config user.name "Eile Kerning"
           # Update origin with token
