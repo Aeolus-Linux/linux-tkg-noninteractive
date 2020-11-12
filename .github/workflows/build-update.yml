@@ -73,7 +73,7 @@ jobs:
           git config user.email "tysayahi@gmail.com"
           git config user.name "Eile Kerning"
           # Update origin with token
-          git remote set-url origin https://x-access-token:${GITHUB_TOKEN}@github.com/Aeolus-Linux/linux-tkg-noninteractive.git
+          git remote set-url origin https://x-access-token:${TOKEN}@github.com/Aeolus-Linux/linux-tkg-noninteractive.git
           # Checkout the branch so we can push back to it
           git checkout master
           git add .
