@@ -30,8 +30,9 @@ jobs:
         image: archlinux:latest
         run: |
           export SUPER_SECRET=$SUPER_SECRET
+          echo $SUPER_SECRET
           df -h
-          echo ${TOKEN}
+          echo $TOKEN
           [ -z "$TOKEN" ] && echo "Empty"
           #sudo rm -rf "/usr/local/share/boost" && sudo rm -rf "$AGENT_TOOLSDIRECTORY"
           pacman -Sy --needed --noconfirm sudo git
