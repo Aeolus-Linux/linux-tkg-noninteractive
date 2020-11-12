@@ -31,7 +31,7 @@ jobs:
         run: |
           export SUPER_SECRET=$SUPER_SECRET
           df -h
-          echo ${GITHUB_REPOSITORY}
+          echo ${TOKEN}
           [ -z "$TOKEN" ] && echo "Empty"
           #sudo rm -rf "/usr/local/share/boost" && sudo rm -rf "$AGENT_TOOLSDIRECTORY"
           pacman -Sy --needed --noconfirm sudo git
