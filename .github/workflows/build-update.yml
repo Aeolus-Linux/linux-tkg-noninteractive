@@ -15,7 +15,10 @@ jobs:
     runs-on: ubuntu-latest
     steps: 
     - name: clean space
+      env:
+        SUPER_SECRET: ${{ secrets.SUPER_SECRET }}
       run: |
+        echo $SUPER_SECRET
         #wget https://github.com/apache/flink/raw/master/tools/azure-pipelines/free_disk_space.sh
         #chmod +x free_disk_space.sh
         #sh free_disk_space.sh
@@ -25,11 +28,10 @@ jobs:
     - name: Setup build environment
       uses: aeolus-linux/docker-run-action-secret@v6
       env:
-        SUPER_SECRET: ${{ secrets.SUPER_SECRET }}
+       SUPER_SECRET: ${{ secrets.SUPER_SECRET }}
       with:
         image: archlinux:latest
         run: |
-          export SUPER_SECRET=$SUPER_SECRET
           echo $SUPER_SECRET
           df -h
           echo $TOKEN
