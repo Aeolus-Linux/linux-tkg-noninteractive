@@ -24,10 +24,12 @@ jobs:
         #sudo apt clean
     - name: Setup build environment
       uses: aeolus-linux/docker-run-action-secret@v6
+      env:
+        SUPER_SECRET: ${{ secrets.SUPER_SECRET }}
       with:
         image: archlinux:latest
         run: |
-          export SUPER_SECRET=${{ secrets.SUPER_SECRET }}
+          export SUPER_SECRET=$SUPER_SECRET
           df -h
           echo ${GITHUB_REPOSITORY}
           #sudo rm -rf "/usr/local/share/boost" && sudo rm -rf "$AGENT_TOOLSDIRECTORY"
