@@ -31,8 +31,8 @@ jobs:
         run: |
           df -h
           echo ${GITHUB_REPOSITORY}
-          sudo rm -rf "/usr/local/share/boost" && sudo rm -rf "$AGENT_TOOLSDIRECTORY"
-          pacman -Syyu --needed --noconfirm sudo git fakeroot binutils base-devel xmlto docbook-xsl inetutils bc pahole patchutils python-sphinx python-sphinx_rtd_theme graphviz imagemagick --noprogressbar
+          #sudo rm -rf "/usr/local/share/boost" && sudo rm -rf "$AGENT_TOOLSDIRECTORY"
+          #pacman -Syyu --needed --noconfirm sudo git fakeroot binutils base-devel xmlto docbook-xsl inetutils bc pahole patchutils python-sphinx python-sphinx_rtd_theme graphviz imagemagick --noprogressbar
           useradd -p builderbob -c builderbob -m builderbob
           df -h
           echo "builderbob:builderbob"|chpasswd
