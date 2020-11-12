@@ -57,11 +57,12 @@ jobs:
           mkdir output
           chmod -R 777 ./output/
           chown -R builderbob:builderbob ./output/
-          #su -c "makepkg -s" builderbob
+          su -c "makepkg -s" builderbob
+          cd ..
+          cd ..
           cp ./upstream/linux-tkg/*.pkg.tar.zst ./output/
           rm -rf upstream
           git add *
-          [ -z ${GITHUB_TOKEN} ]
           # Hard-code user configuration
           git config user.email "tysayahi@gmail.com"
           git config user.name "Eile Kerning"
