@@ -43,29 +43,30 @@ jobs:
           sudo chmod 777 ./linux-tkg-noninteractive/
           cd linux-tkg-noninteractive
           git init
-          mkdir upstream
-          cd upstream
-          git clone https://github.com/Frogging-Family/linux-tkg.git
-          rm ./linux-tkg/customization.cfg
-          cd ..
-          cp ./fileskept/customization.cfg ./upstream/linux-tkg/
-          sudo chown -R builderbob:builderbob ./upstream/
-          sudo chmod 777 -R ./upstream/
-          cd upstream
-          sudo chmod 777 -R ./linux-tkg/
-          sudo chown -R builderbob:builderbob ./linux-tkg/
-          cd ..
-          rm -rf output
-          mkdir output
-          sudo chmod -R 777 ./output/
-          sudo chown -R builderbob:builderbob ./output/
-          cd upstream
-          cd linux-tkg
-          su -c "makepkg -s" builderbob
-          cd ..
-          cd ..
-          cp ./upstream/linux-tkg/*.pkg.tar.zst ./output/
-          rm -rf upstream
+          df -h > TestFile.txt  
+          #mkdir upstream
+          #cd upstream
+          #git clone https://github.com/Frogging-Family/linux-tkg.git
+          #rm ./linux-tkg/customization.cfg
+          #cd ..
+          #cp ./fileskept/customization.cfg ./upstream/linux-tkg/
+          #sudo chown -R builderbob:builderbob ./upstream/
+          #sudo chmod 777 -R ./upstream/
+          #cd upstream
+          #sudo chmod 777 -R ./linux-tkg/
+          #sudo chown -R builderbob:builderbob ./linux-tkg/
+          #cd ..
+          #rm -rf output
+          #mkdir output
+          #sudo chmod -R 777 ./output/
+          #sudo chown -R builderbob:builderbob ./output/
+          #cd upstream
+          #cd linux-tkg
+          #su -c "makepkg -s" builderbob
+          #cd ..
+          #cd ..
+          #cp ./upstream/linux-tkg/*.pkg.tar.zst ./output/
+          #rm -rf upstream
           git add *
           # Hard-code user configuration
           git config user.email "tysayahi@gmail.com"
@@ -76,4 +77,4 @@ jobs:
           git checkout master
           git add .
           # Only commit and push if we have changes
-          git diff --quiet && git diff --staged --quiet || (git commit -m "${COMMIT_MSG}"; git push origin master)
+          git diff --quiet && git diff --staged --quiet || (git commit -m "Update Linux"; git push origin master)
