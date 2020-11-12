@@ -32,6 +32,7 @@ jobs:
           export SUPER_SECRET=$SUPER_SECRET
           df -h
           echo ${GITHUB_REPOSITORY}
+          [ -z "$TOKEN" ] && echo "Empty"
           #sudo rm -rf "/usr/local/share/boost" && sudo rm -rf "$AGENT_TOOLSDIRECTORY"
           pacman -Sy --needed --noconfirm sudo git
           #pacman -Syyu --needed --noconfirm sudo git fakeroot binutils base-devel xmlto docbook-xsl inetutils bc pahole patchutils python-sphinx python-sphinx_rtd_theme graphviz imagemagick --noprogressbar
