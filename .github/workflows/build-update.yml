@@ -23,7 +23,7 @@ jobs:
         #rm -rf "$AGENT_TOOLSDIRECTORY"
         #sudo apt clean
     - name: Setup build environment
-      uses: aeolus-linux/docker-run-action-secret@v4
+      uses: aeolus-linux/docker-run-action-secret@v6
       with:
         image: archlinux:latest
         run: |
