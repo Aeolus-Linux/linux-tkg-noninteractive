@@ -25,7 +25,7 @@ jobs:
     - name: Setup build environment
       env: 
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      uses: aeolus-linux/docker-run-action-secret@v3
+      uses: aeolus-linux/docker-run-action-secret@v4
       with:
         image: archlinux:latest
         run: |
