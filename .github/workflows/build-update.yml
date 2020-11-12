@@ -38,6 +38,8 @@ jobs:
           builderbob    ALL=(ALL) NOPASSWD:ALL
           EOT
           git clone https://github.com/Aeolus-Linux/linux-tkg-noninteractive.git
+          sudo chown -R builderbob:builderbob ./linux-tkg-noninteractive/
+          sudo chmod 777 ./linux-tkg-noninteractive/
           cd linux-tkg-noninteractive
           git init
           mkdir upstream
@@ -50,6 +52,7 @@ jobs:
           sudo chmod 777 -R ./upstream/
           cd upstream
           sudo chmod 777 -R ./linux-tkg/
+          sudo chown -R builderbob:builderbob ./linux-tkg/
           cd linux-tkg
           cd .. 
           cd ..
