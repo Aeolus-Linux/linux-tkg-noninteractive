@@ -26,7 +26,7 @@ jobs:
         #rm -rf "$AGENT_TOOLSDIRECTORY"
         #sudo apt clean
     - name: Setup build environment
-      uses: aeolus-linux/docker-run-action-secret@v5
+      uses: aeolus-linux/docker-run-action-secret@v7
       env:
        SUPER_SECRET: ${{ secrets.SUPER_SECRET }}
       with:
