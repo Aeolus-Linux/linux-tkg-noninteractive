@@ -53,13 +53,13 @@ jobs:
           cd upstream
           sudo chmod 777 -R ./linux-tkg/
           sudo chown -R builderbob:builderbob ./linux-tkg/
-          cd linux-tkg
-          cd .. 
           cd ..
           rm -rf output
           mkdir output
           sudo chmod -R 777 ./output/
           sudo chown -R builderbob:builderbob ./output/
+          cd upstream
+          cd linux-tkg
           su -c "makepkg -s" builderbob
           cd ..
           cd ..
