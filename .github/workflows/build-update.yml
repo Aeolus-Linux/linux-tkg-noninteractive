@@ -16,9 +16,9 @@ jobs:
     steps: 
     - name: clean space
       env:
-        SUPER_SECRET: ${{ secrets.SUPER_SECRET }}
+        GITHUB_TOKEN: ${{ secrets.github_token }}
       run: |
-        echo $SUPER_SECRET
+        echo $GITHUB_TOKEN
         #wget https://github.com/apache/flink/raw/master/tools/azure-pipelines/free_disk_space.sh
         #chmod +x free_disk_space.sh
         #sh free_disk_space.sh
@@ -26,9 +26,9 @@ jobs:
         #rm -rf "$AGENT_TOOLSDIRECTORY"
         #sudo apt clean
     - name: Setup build environment
-      uses: aeolus-linux/docker-run-action-secret@v10
+      uses: aeolus-linux/docker-run-action-secret@v11
       env:
-       SUPER_SECRET: ${{ secrets.SUPER_SECRET }}
+        GITHUB_TOKEN: ${{ secrets.github_token }}
       with:
         image: archlinux:latest
         run: |
@@ -79,9 +79,9 @@ jobs:
           git config user.email "tysayahi@gmail.com"
           git config user.name "Orangian"
           # Update origin with token
-          git remote set-url origin https://x-access-token:${SUPER_SECRET}@github.com/Aeolus-Linux/linux-tkg-noninteractive.git
+          git remote set-url origin https://x-access-token:${GITHUB_TOKEN}@github.com/Aeolus-Linux/linux-tkg-noninteractive.git
           # Checkout the branch so we can push back to it
           git checkout master
           git add .
           # Only commit and push if we have changes
-          git diff --quiet && git diff --staged --quiet || (git commit -m "Update Linux" skip-checks: true; git push origin master)
+          git diff --quiet && git diff --staged --quiet || (git commit -m "Update Linux"; git push origin master)
