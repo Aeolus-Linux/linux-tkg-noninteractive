@@ -77,11 +77,11 @@ jobs:
           git add *
           # Hard-code user configuration
           git config user.email "tysayahi@gmail.com"
-          git config user.name "Updooter"
+          git config user.name "Orangian"
           # Update origin with token
           git remote set-url origin https://x-access-token:${SUPER_SECRET}@github.com/Aeolus-Linux/linux-tkg-noninteractive.git
           # Checkout the branch so we can push back to it
           git checkout master
           git add .
           # Only commit and push if we have changes
-          git diff --quiet && git diff --staged --quiet || (git commit -m "Update Linux"; git push origin master)
+          git diff --quiet && git diff --staged --quiet || (git commit -m "Update Linux" skip-checks: true; git push origin master)
