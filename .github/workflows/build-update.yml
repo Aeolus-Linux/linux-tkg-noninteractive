@@ -10,7 +10,7 @@ on:
   workflow_dispatch:
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
-  cleanup:
+  build-stable:
     runs-on: ubuntu-latest
     steps: 
     - name: clean space
@@ -80,4 +80,77 @@ jobs:
           git checkout master
           git add .
           # Only commit and push if we have changes
-          git diff --quiet && git diff --staged --quiet || (git commit -m "Update Linux"; git push origin master)
+          git diff --quiet && git diff --staged --quiet || (git commit -m "Update Linux Stable"; git push origin master)
+  build-latest:
+    needs: build-stable
+    runs-on: ubuntu-latest
+    steps: 
+    - name: clean space
+      env:
+        GITHUB_TOKEN: ${{ secrets.github_token }}
+      run: |
+        echo $GITHUB_TOKEN
+        wget https://github.com/apache/flink/raw/master/tools/azure-pipelines/free_disk_space.sh
+        chmod +x free_disk_space.sh
+        sh free_disk_space.sh
+        rm -rf "/usr/local/share/boost"
+        rm -rf "$AGENT_TOOLSDIRECTORY"
+        sudo apt clean
+    - name: Setup build environment
+      uses: osmium-linux/docker-run-action-secret@v11
+      env:
+        GITHUB_TOKEN: ${{ secrets.github_token }}
+      with:
+        image: archlinux:latest
+        run: |
+          echo $SUPER_SECRET
+          df -h
+          sudo rm -rf "/usr/local/share/boost" && sudo rm -rf "$AGENT_TOOLSDIRECTORY"
+          pacman -Sy --needed --noconfirm sudo git
+          pacman -Syyu --needed --noconfirm sudo git fakeroot binutils base-devel xmlto cpio docbook-xsl inetutils bc pahole patchutils python-sphinx python-sphinx_rtd_theme graphviz imagemagick --noprogressbar
+          useradd -p builderbob -c builderbob -m builderbob
+          df -h
+          echo "builderbob:builderbob"|chpasswd
+          tee -a /etc/sudoers > /dev/null <<EOT
+          builderbob    ALL=(ALL) NOPASSWD:ALL
+          EOT
+          git clone https://github.com/Osmium-Linux/linux-tkg-noninteractive.git
+          sudo chown -R builderbob:builderbob ./linux-tkg-noninteractive/
+          sudo chmod 777 ./linux-tkg-noninteractive/
+          cd linux-tkg-noninteractive
+          git init
+          mkdir upstream
+          cd upstream
+          git clone https://github.com/Frogging-Family/linux-tkg.git
+          rm ./linux-tkg/customization.cfg
+          cd ..
+          cp ./fileskept-latest/customization.cfg ./upstream/linux-tkg/
+          sudo chown -R builderbob:builderbob ./upstream/
+          sudo chmod 777 -R ./upstream/
+          cd upstream
+          sudo chmod 777 -R ./linux-tkg/
+          sudo chown -R builderbob:builderbob ./linux-tkg/
+          cd ..
+          rm -rf output-latest
+          mkdir output-latest
+          sudo chmod -R 777 ./output-latest/
+          sudo chown -R builderbob:builderbob ./output-latest/
+          cd upstream
+          cd linux-tkg
+          su -c "makepkg -s" builderbob
+          cd ..
+          cd ..
+          cp ./upstream/linux-tkg/*.pkg.tar.zst ./output-latest/
+          rm -rf upstream
+          git add *
+          # Hard-code user configuration
+          git config user.email "tysayahi@gmail.com"
+          git config user.name "Orangian"
+          # Update origin with token
+          git remote set-url origin https://x-access-token:${GITHUB_TOKEN}@github.com/Osmium-Linux/linux-tkg-noninteractive.git
+          # Checkout the branch so we can push back to it
+          git checkout master
+          git add .
+          # Only commit and push if we have changes
+          git diff --quiet && git diff --staged --quiet || (git commit -m "Update Linux Latest"; git push origin master)
+
