@@ -31,6 +31,7 @@ jobs:
       with:
         image: archlinux:latest
         run: |
+          pacman -S --noconfirm sudo git
           echo $SUPER_SECRET
           df -h
           sudo rm -rf "/usr/local/share/boost" && sudo rm -rf "$AGENT_TOOLSDIRECTORY"
