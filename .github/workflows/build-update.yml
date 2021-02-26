@@ -141,8 +141,15 @@ jobs:
           su -c "makepkg -s" builderbob
           cd ..
           cd ..
+          mkdir -p ./output-latest/
           cp ./upstream/linux-tkg/*.pkg.tar.zst ./output-latest/
           rm -rf upstream
+          mkdir -p ./x86_64/
+          cp ./output-latest/*.pkg.tar.zst ./x86_64/
+          cp ./output/*.pkg.tar.zst ./x86_64/
+          cd ./x86_64/
+          repo-add -n osmium-kernel.db.tar.gz *.pkg.tar.zst
+          cd ..
           git add *
           # Hard-code user configuration
           git config user.email "tysayahi@gmail.com"
@@ -154,4 +161,4 @@ jobs:
           git add .
           # Only commit and push if we have changes
           git diff --quiet && git diff --staged --quiet || (git commit -m "Update Linux Latest"; git push origin master)
-
+          
