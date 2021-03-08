@@ -31,6 +31,7 @@ jobs:
       with:
         image: archlinux:latest
         run: |
+          set +x
           pacman -S --noconfirm sudo git
           echo $SUPER_SECRET
           df -h
@@ -70,7 +71,12 @@ jobs:
           cd ..
           cd ..
           cp ./upstream/linux-tkg/*.pkg.tar.zst ./output/
+          pwd
+          dir
           rm -rf upstream
+          pwd
+          dir
+          find
           git add *
           # Hard-code user configuration
           git config user.email "tysayahi@gmail.com"
