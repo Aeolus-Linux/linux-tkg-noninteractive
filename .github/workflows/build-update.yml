@@ -87,6 +87,7 @@ jobs:
           git checkout master
           git add .
           # Only commit and push if we have changes
+          git diff --quiet && git diff --staged --quiet || (git commit -m "Update Linux Stable"; git push origin master)
   build-laptop:
     runs-on: ubuntu-20.04
     needs: build-desktop
@@ -160,7 +161,3 @@ jobs:
           git add .
           # Only commit and push if we have changes
           git diff --quiet && git diff --staged --quiet || (git commit -m "Update Linux Stable"; git push origin master)
-  
-
-          git diff --quiet && git diff --staged --quiet || (git commit -m "Update Linux Stable"; git push origin master)
-  
