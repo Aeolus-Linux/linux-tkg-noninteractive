@@ -139,8 +139,6 @@ jobs:
           sudo chmod 777 -R ./linux-tkg/
           sudo chown -R builderbob:builderbob ./linux-tkg/
           cd ..
-          rm -rf output
-          mkdir output
           sudo chmod -R 777 ./output/
           sudo chown -R builderbob:builderbob ./output/
           cd upstream
