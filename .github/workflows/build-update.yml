@@ -11,7 +11,7 @@ on:
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
   build-desktop:
-    runs-on: ubuntu-20.04
+    runs-on: self-hosted
     steps: 
     - name: clean space
       env:
@@ -89,7 +89,7 @@ jobs:
           # Only commit and push if we have changes
           git diff --quiet && git diff --staged --quiet || (git commit -m "Update Desktop"; git push origin master)
   build-laptop:
-    runs-on: ubuntu-20.04
+    runs-on: self-hosted
     needs: build-desktop
     steps: 
     - name: clean space
@@ -160,7 +160,7 @@ jobs:
           # Only commit and push if we have changes
           git diff --quiet && git diff --staged --quiet || (git commit -m "Update Laptop"; git push origin master)
   build-wook:
-    runs-on: ubuntu-20.04
+    runs-on: self-hosted
     needs: build-laptop
     steps: 
     - name: clean space
