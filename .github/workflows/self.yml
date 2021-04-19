@@ -17,6 +17,7 @@ jobs:
       - name: Setup build environment
         run: |
           set +x
+          pacman -Syyu --noconfirm
           pacman -S --noconfirm sudo git
           echo $SUPER_SECRET
           df -h
@@ -81,6 +82,7 @@ jobs:
     steps: 
     - name: Setup build environment
       run: |
+          pacman -Syyu --noconfirm
           pacman -S --noconfirm sudo git
           echo $SUPER_SECRET
           df -h
@@ -138,6 +140,7 @@ jobs:
     steps: 
     - name: Setup build environment
       run: |
+          pacman -Syyu --noconfirm
           pacman -S --noconfirm sudo git
           echo $SUPER_SECRET
           df -h
