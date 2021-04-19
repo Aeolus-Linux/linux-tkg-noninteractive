@@ -11,6 +11,8 @@ on:
 jobs:
   build-desktop:
     runs-on: self-hosted
+    container:
+      image: archlinux:latest
     steps:
       - name: Setup build environment
         run: |
@@ -74,6 +76,8 @@ jobs:
   build-laptop:
     runs-on: self-hosted
     needs: build-desktop
+    container:
+      image: archlinux:latest
     steps: 
     - name: Setup build environment
       run: |
@@ -128,6 +132,8 @@ jobs:
           git diff --quiet && git diff --staged --quiet || (git commit -m "Update Laptop"; git push origin master)
   build-wook:
     runs-on: self-hosted
+    container:
+      image: archlinux:latest
     needs: build-laptop
     steps: 
     - name: Setup build environment
