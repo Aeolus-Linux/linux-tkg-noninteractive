@@ -5,25 +5,25 @@ name: CI
 # Controls when the action will run. Triggers the workflow on push or pull request
 # events but only for the master branch
 on: 
- # schedule: 
- #   - cron: '30 07 * * 06'
+  schedule: 
+    - cron: '30 07 * * 06'
   workflow_dispatch:
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
   build-desktop:
-    runs-on: self-hosted
+    runs-on: ubuntu-20.04
     steps: 
-#    - name: clean space
-#      env:
-#        GITHUB_TOKEN: ${{ secrets.github_token }}
-#      run: |
-#        echo $GITHUB_TOKEN
-#        wget https://github.com/apache/flink/raw/master/tools/azure-pipelines/free_disk_space.sh
-#        chmod +x free_disk_space.sh
-#        sh free_disk_space.sh
-#        rm -rf "/usr/local/share/boost"
-#        rm -rf "$AGENT_TOOLSDIRECTORY"
-#        sudo apt clean
+    - name: clean space
+      env:
+        GITHUB_TOKEN: ${{ secrets.github_token }}
+      run: |
+        echo $GITHUB_TOKEN
+        wget https://github.com/apache/flink/raw/master/tools/azure-pipelines/free_disk_space.sh
+        chmod +x free_disk_space.sh
+        sh free_disk_space.sh
+        rm -rf "/usr/local/share/boost"
+        rm -rf "$AGENT_TOOLSDIRECTORY"
+        sudo apt clean
     - name: Setup build environment
       uses: osmium-linux/docker-run-action-secret@v11
       env:
@@ -89,20 +89,20 @@ jobs:
           # Only commit and push if we have changes
           git diff --quiet && git diff --staged --quiet || (git commit -m "Update Desktop"; git push origin master)
   build-laptop:
-    runs-on: self-hosted
+    runs-on: ubuntu-20.04
     needs: build-desktop
     steps: 
-#    - name: clean space
-#      env:
-#        GITHUB_TOKEN: ${{ secrets.github_token }}
-#      run: |
-#        echo $GITHUB_TOKEN
-#        wget https://github.com/apache/flink/raw/master/tools/azure-pipelines/free_disk_space.sh
-#        chmod +x free_disk_space.sh
-#        sh free_disk_space.sh
-#        rm -rf "/usr/local/share/boost"
-#        rm -rf "$AGENT_TOOLSDIRECTORY"
-#        sudo apt clean
+    - name: clean space
+      env:
+        GITHUB_TOKEN: ${{ secrets.github_token }}
+      run: |
+        echo $GITHUB_TOKEN
+        wget https://github.com/apache/flink/raw/master/tools/azure-pipelines/free_disk_space.sh
+        chmod +x free_disk_space.sh
+        sh free_disk_space.sh
+        rm -rf "/usr/local/share/boost"
+        rm -rf "$AGENT_TOOLSDIRECTORY"
+        sudo apt clean
     - name: Setup build environment
       uses: osmium-linux/docker-run-action-secret@v11
       env:
@@ -160,20 +160,20 @@ jobs:
           # Only commit and push if we have changes
           git diff --quiet && git diff --staged --quiet || (git commit -m "Update Laptop"; git push origin master)
   build-wook:
-    runs-on: self-hosted
+    runs-on: ubuntu-20.04
     needs: build-laptop
     steps: 
-#    - name: clean space
- #     env:
- #       GITHUB_TOKEN: ${{ secrets.github_token }}
- #     run: |
- #       echo $GITHUB_TOKEN
- #       wget https://github.com/apache/flink/raw/master/tools/azure-pipelines/free_disk_space.sh
-#        chmod +x free_disk_space.sh
-#        sh free_disk_space.sh
-#        rm -rf "/usr/local/share/boost"
-#        rm -rf "$AGENT_TOOLSDIRECTORY"
-#        sudo apt clean
+    - name: clean space
+      env:
+        GITHUB_TOKEN: ${{ secrets.github_token }}
+      run: |
+        echo $GITHUB_TOKEN
+        wget https://github.com/apache/flink/raw/master/tools/azure-pipelines/free_disk_space.sh
+        chmod +x free_disk_space.sh
+        sh free_disk_space.sh
+        rm -rf "/usr/local/share/boost"
+        rm -rf "$AGENT_TOOLSDIRECTORY"
+        sudo apt clean
     - name: Setup build environment
       uses: osmium-linux/docker-run-action-secret@v11
       env:
