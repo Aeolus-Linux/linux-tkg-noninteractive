@@ -16,6 +16,7 @@ jobs:
     steps:
       - name: Setup build environment
         run: |
+          echo ${{ secrets.GITHUB_TOKEN }}
           set +x
           pacman -Syyu --noconfirm
           pacman -S --noconfirm sudo git
